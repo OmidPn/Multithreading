@@ -11,16 +11,17 @@ class Processor implements Runnable{
    }
 	@Override
 	public void run() {
-		System.out.println(" STARTING...."+id);
+		System.out.println(Thread.currentThread().getName()+" is starting task number "+id);
 		
 		try {
+			System.out.println(Thread.currentThread().getName()+" is working on task number "+id);
 			Thread.sleep(5000);
 		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
-		System.out.println("COMPLETED: "+id);
+		System.out.println(Thread.currentThread().getName()+ " completed task number "+id);
 		
 	}
 	
@@ -36,15 +37,15 @@ public class App {
 		executor.shutdown();
 		
 		System.out.println("All tasks submittd");
+		// we can both use the following approach to be sure that executor finishes it's job
+		 while(!executor.isTerminated()){}
+//		try {		executor.awaitTermination(1, TimeUnit.DAYS);
+//		} catch (InterruptedException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
 		
-		try {
-			executor.awaitTermination(1, TimeUnit.DAYS);
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-		System.out.println("All task completed.");
+		System.out.println("All task completed and executor terminated it's job");
 		
 	}
 }
