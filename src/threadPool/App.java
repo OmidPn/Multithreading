@@ -45,6 +45,7 @@ public class App {
 		}
 		
 		System.out.println("All task completed.");
+		Runtime.getRuntime().exit(0);;
 		
 	}
 }
